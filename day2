@@ -1,0 +1,492 @@
+Last login: Sun Jan  8 10:54:00 on console
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+swarnavs-MacBook-Air:~ swarnavpaul$ sudu su -
+-bash: sudu: command not found
+swarnavs-MacBook-Air:~ swarnavpaul$ hostname
+swarnavs-MacBook-Air.local
+swarnavs-MacBook-Air:~ swarnavpaul$ bash
+bash-5.2$ cd ~/devops/provision/vagrant/ubuntu
+bash-5.2$ pwd
+/Users/swarnavpaul/devops/provision/vagrant/ubuntu
+bash-5.2$ ls
+Vagrantfile
+ubuntu-xenial-16.04-cloudimg-console.log
+bash-5.2$ code Vagrantfile 
+bash-5.2$ vagrant box list
+centos/7        (virtualbox, 2004.01)
+ubuntu/xenial64 (virtualbox, 20211001.0.0)
+bash-5.2$ vagrant box add generic/ubuntu1804
+==> box: Loading metadata for box 'generic/ubuntu1804'
+    box: URL: https://vagrantcloud.com/generic/ubuntu1804
+This box can work with multiple providers! The providers that it
+can work with are listed below. Please review the list and choose
+the provider you will be working with.
+
+1) hyperv
+2) libvirt
+3) parallels
+4) virtualbox
+5) vmware_desktop
+
+Enter your choice: 4
+==> box: Adding box 'generic/ubuntu1804' (v4.2.8) for provider: virtualbox
+    box: Downloading: https://vagrantcloud.com/generic/boxes/ubuntu1804/versions/4.2.8/providers/virtualbox.box
+    box: Calculating and comparing box checksum...
+==> box: Successfully added box 'generic/ubuntu1804' (v4.2.8) for 'virtualbox'!
+bash-5.2$ code Vagrantfile 
+bash-5.2$ vagrant status
+Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+bash-5.2$ vagrant destroy -f
+==> default: Destroying VM and associated drives...
+bash-5.2$ vagrant box list
+centos/7           (virtualbox, 2004.01)
+generic/ubuntu1804 (virtualbox, 4.2.8)
+ubuntu/xenial64    (virtualbox, 20211001.0.0)
+bash-5.2$ vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Importing base box 'generic/ubuntu1804'...
+==> default: Matching MAC address for NAT networking...
+==> default: Checking if box 'generic/ubuntu1804' version '4.2.8' is up to date...
+==> default: Setting the name of the VM: ubuntu_default_1673156206819_29824
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==> default: Forwarding ports...
+    default: 22 (guest) => 2222 (host) (adapter 1)
+==> default: Running 'pre-boot' VM customizations...
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Connection reset. Retrying...
+    default: Warning: Remote connection disconnect. Retrying...
+    default: 
+    default: Vagrant insecure key detected. Vagrant will automatically replace
+    default: this with a newly generated keypair for better security.
+    default: 
+    default: Inserting generated public key within guest...
+    default: Removing insecure key from the guest if it's present...
+    default: Key inserted! Disconnecting and reconnecting using new SSH key...
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default: 
+    default: Guest Additions Version: 5.2.42
+    default: VirtualBox Version: 7.0
+bash-5.2$ vagrant status
+Current machine states:
+
+default                   running (virtualbox)
+
+The VM is running. To stop this VM, you can run `vagrant halt` to
+shut it down forcefully, or you can run `vagrant suspend` to simply
+suspend the virtual machine. In either case, to restart it again,
+simply run `vagrant up`.
+bash-5.2$ vagrant ssh
+vagrant@ubuntu1804:~$ sudo su -
+root@ubuntu1804:~# cat /etc/*release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.6 LTS"
+NAME="Ubuntu"
+VERSION="18.04.6 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.6 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+root@ubuntu1804:~# curl -fsSL https://test.docker.com -o test-docker.sh
+root@ubuntu1804:~# systemctl is-active docker
+inactive
+root@ubuntu1804:~# sh test-docker.sh 
+# Executing docker install script, commit: 4f282167c425347a931ccfd95cc91fab041d414f
++ sh -c apt-get update -qq >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
++ sh -c mkdir -p /etc/apt/keyrings && chmod -R 0755 /etc/apt/keyrings
++ sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | gpg --dearmor --yes -o /etc/apt/keyrings/docker.gpg
++ sh -c chmod a+r /etc/apt/keyrings/docker.gpg
++ sh -c echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu bionic test" > /etc/apt/sources.list.d/docker.list
++ sh -c apt-get update -qq >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-scan-plugin docker-buildx-plugin >/dev/null
++ version_gte 20.10
++ [ -z  ]
++ return 0
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq docker-ce-rootless-extras >/dev/null
++ sh -c docker version
+Client: Docker Engine - Community
+ Version:           23.0.0-rc.1
+ API version:       1.42
+ Go version:        go1.19.4
+ Git commit:        139e924
+ Built:             Thu Dec 22 23:36:50 2022
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          23.0.0-rc.1
+  API version:      1.42 (minimum version 1.12)
+  Go version:       go1.19.4
+  Git commit:       cba986b
+  Built:            Thu Dec 22 23:36:50 2022
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.6.14
+  GitCommit:        9ba4b250366a5ddde94bb7c9d1def331423aa323
+ runc:
+  Version:          1.1.4
+  GitCommit:        v1.1.4-0-g5fd4c4d
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+================================================================================
+
+To run Docker as a non-privileged user, consider setting up the
+Docker daemon in rootless mode for your user:
+
+    dockerd-rootless-setuptool.sh install
+
+Visit https://docs.docker.com/go/rootless/ to learn about rootless mode.
+
+
+To run the Docker daemon as a fully privileged service, but granting non-root
+users access, refer to https://docs.docker.com/go/daemon-access/
+
+WARNING: Access to the remote API on a privileged Docker daemon is equivalent
+         to root access on the host. Refer to the 'Docker daemon attack surface'
+         documentation for details: https://docs.docker.com/go/attack-surface/
+
+================================================================================
+
+root@ubuntu1804:~# systemctl is-active docker
+active
+root@ubuntu1804:~# systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: e
+   Active: active (running) since Sun 2023-01-08 05:41:34 UTC; 28s ago
+     Docs: https://docs.docker.com
+ Main PID: 3586 (dockerd)
+    Tasks: 8
+   CGroup: /system.slice/docker.service
+           └─3586 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/contain
+
+Jan 08 05:41:33 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:33.
+Jan 08 05:41:33 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:33.
+Jan 08 05:41:33 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:33.
+Jan 08 05:41:33 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:33.
+Jan 08 05:41:33 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:33.
+Jan 08 05:41:33 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:33.
+Jan 08 05:41:33 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:33.
+Jan 08 05:41:34 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:34.
+Jan 08 05:41:34 ubuntu1804.localdomain systemd[1]: Started Docker Application Co
+Jan 08 05:41:34 ubuntu1804.localdomain dockerd[3586]: time="2023-01-08T05:41:34.
+
+root@ubuntu1804:~# 
+root@ubuntu1804:~# 
+root@ubuntu1804:~# docker pull nginx
+Using default tag: latest
+latest: Pulling from library/nginx
+3f4ca61aafcd: Pull complete 
+50c68654b16f: Pull complete 
+3ed295c083ec: Pull complete 
+40b838968eea: Pull complete 
+88d3ab68332d: Pull complete 
+5f63362a3fa3: Pull complete 
+Digest: sha256:0047b729188a15da49380d9506d65959cce6d40291ccfb4e039f5dc7efd33286
+Status: Downloaded newer image for nginx:latest
+docker.io/library/nginx:latest
+root@ubuntu1804:~# docker info
+Client:
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.10.0-rc2
+    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v2.14.2
+    Path:     /usr/libexec/docker/cli-plugins/docker-compose
+  scan: Docker Scan (Docker Inc.)
+    Version:  v0.23.0
+    Path:     /usr/libexec/docker/cli-plugins/docker-scan
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 1
+ Server Version: 23.0.0-rc.1
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Using metacopy: false
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: cgroupfs
+ Cgroup Version: 1
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local logentries splunk syslog
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: 9ba4b250366a5ddde94bb7c9d1def331423aa323
+ runc version: v1.1.4-0-g5fd4c4d
+ init version: de40ad0
+ Security Options:
+  apparmor
+  seccomp
+   Profile: builtin
+ Kernel Version: 4.15.0-200-generic
+ Operating System: Ubuntu 18.04.6 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 2
+ Total Memory: 1.946GiB
+ Name: ubuntu1804.localdomain
+ ID: 87827bfb-ed8c-4fa2-89ba-92fdb6b5f8e3
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Registry: https://index.docker.io/v1/
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+WARNING: No swap limit support
+root@ubuntu1804:~# docker system df
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          1         0         141.8MB   141.8MB (100%)
+Containers      0         0         0B        0B
+Local Volumes   0         0         0B        0B
+Build Cache     0         0         0B        0B
+root@ubuntu1804:~# docker inspect nginx
+[
+    {
+        "Id": "sha256:1403e55ab369cd1c8039c34e6b4d47ca40bbde39c371254c7cba14756f472f52",
+        "RepoTags": [
+            "nginx:latest"
+        ],
+        "RepoDigests": [
+            "nginx@sha256:0047b729188a15da49380d9506d65959cce6d40291ccfb4e039f5dc7efd33286"
+        ],
+        "Parent": "",
+        "Comment": "",
+        "Created": "2022-12-21T11:28:36.032076444Z",
+        "Container": "998db7a2435fd5f47cc2066317b9c502c84c6d386ee02e932fcae89b956d64d1",
+        "ContainerConfig": {
+            "Hostname": "998db7a2435f",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NGINX_VERSION=1.23.3",
+                "NJS_VERSION=0.7.9",
+                "PKG_RELEASE=1~bullseye"
+            ],
+            "Cmd": [
+                "/bin/sh",
+                "-c",
+                "#(nop) ",
+                "CMD [\"nginx\" \"-g\" \"daemon off;\"]"
+            ],
+            "Image": "sha256:54be6ffbe9af301b35b9af81ecfae9044801d34e735798a0607839ba6a10ff23",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+            },
+            "StopSignal": "SIGQUIT"
+        },
+        "DockerVersion": "20.10.12",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NGINX_VERSION=1.23.3",
+                "NJS_VERSION=0.7.9",
+                "PKG_RELEASE=1~bullseye"
+            ],
+            "Cmd": [
+                "nginx",
+                "-g",
+                "daemon off;"
+            ],
+            "Image": "sha256:54be6ffbe9af301b35b9af81ecfae9044801d34e735798a0607839ba6a10ff23",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": [
+                "/docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+            },
+            "StopSignal": "SIGQUIT"
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 141812353,
+        "VirtualSize": 141812353,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/3940ed2717a18243f591aad022c61ee500747be1c3b015e6cbb44898d0791206/diff:/var/lib/docker/overlay2/a0be2e97b63307cff96fed7f9fb575837757f4631b76ef3f28be77165db7e178/diff:/var/lib/docker/overlay2/bd8a2cc84400d52674b1c970ebe139015f20588d967e251490f84da20911b32e/diff:/var/lib/docker/overlay2/889148b4a2368ec9f8259283d9d8e69739cdddcf5f9c8d289a386471576ce1af/diff:/var/lib/docker/overlay2/afe43df0f729761d1bfbdfdb64510b93d31e7ce4561ebae55702824303bcb087/diff",
+                "MergedDir": "/var/lib/docker/overlay2/6b8f619932c49c9eb5fff7ae3aa132fda52fa64c4964b5c934f9ef6add962b2d/merged",
+                "UpperDir": "/var/lib/docker/overlay2/6b8f619932c49c9eb5fff7ae3aa132fda52fa64c4964b5c934f9ef6add962b2d/diff",
+                "WorkDir": "/var/lib/docker/overlay2/6b8f619932c49c9eb5fff7ae3aa132fda52fa64c4964b5c934f9ef6add962b2d/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:8a70d251b65364698f195f5a0b424e0d67de81307b79afbe662abd797068a069",
+                "sha256:2dadbc36c170719f910a91a5417bf49deabd05bc39ccff3819a391462675ecd0",
+                "sha256:2b3eec3578075bf2ebce00bd6958f1c21b4b5624fcdde301a01b4bda7b8a9bc7",
+                "sha256:d13aea24d2cb0aee650b72ffa8a0c7863a5b06327542ae46fe5987f223cb836c",
+                "sha256:9a0ef04f57f54323637935c32b46a2cae3e0451a39b1c306d5b4bc6d4f479e0b",
+                "sha256:c72d75f45e5b50e9d16b482faac4646268abc644f1bd68dc2f45100defcf08a2"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "0001-01-01T00:00:00Z"
+        }
+    }
+]
+root@ubuntu1804:~# docker search registry.access.redhat.com/httpd
+NAME                                               DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+ubi9/httpd-24                                      rhcc_registry.access.redhat.com_ubi9/httpd-24   0                    
+rhscl/httpd-24-rhel7                               Apache HTTP 2.4 Server                          0                    
+rhscl/varnish-4-rhel7                              Varnish 4 high-performance HTTP accelerator     0                    
+rhmap45/httpd                                      Provides an extension to the RHSCL Httpd ima…   0                    
+rhmap44/httpd                                      Provides an extension to the RHSCL Httpd Doc…   0                    
+rhmap42/httpd                                      Provides an extension to the RHSCL Httpd Doc…   0                    
+openshift3/ose-egress-http-proxy                   This is the egress router HTTP proxy for Ope…   0                    
+rhmap46/httpd                                      Provides an extension to the RHSCL Httpd ima…   0                    
+cloudforms47/cfme-openshift-httpd                  CloudForms 4.7 APP image for OpenShift          0                    
+rhscl/varnish-6-rhel7                              Varnish available as container is a base pla…   0                    
+cloudforms46-beta/cfme-openshift-httpd             CloudForms is a management and automation pl…   0                    
+ubi8/httpd-24                                      Platform for running Apache httpd 2.4 or bui…   0                    
+cloudforms46/cfme-openshift-httpd                  Web Server image for a multi-pod Red Hat® Cl…   0                    
+rhmap43/httpd                                      Provides an extension to the RHSCL Httpd Doc…   0                    
+rhmap47/httpd                                      Provides an extension to the RHSCL Httpd ima…   0                    
+rhscl/varnish-5-rhel7                              Varnish available as container is a base pla…   0                    
+openshift3/prometheus-alert-buffer                 A small server that saves incoming webhook J…   0                    
+openshift3/ose-f5-router                           The F5 router plug-in integrates with an exi…   0                    
+openshift3/ose-haproxy-router                      Default router implementation for OpenShift …   0                    
+cloudforms46-beta/cfme-httpd-configmap-generator   CloudForms is a management and automation pl…   0                    
+cloudforms46/cfme-httpd-configmap-generator        External Authentication configuration mappin…   0                    
+cloudforms47/cfme-httpd-configmap-generator        CloudForms 4.7 APP image for OpenShift          0                    
+rhscl/s2i-core-rhel7                               The s2i core container image serves as a bas…   0                    
+rhscl/nginx-112-rhel7                              Nginx is a web server and a reverse proxy se…   0                    
+cloudforms46/cfme-openshift-app                    Red Hat® CloudForms Appliance image to be us…   0                    
+3scale-amp22/backend                               3scale is an API Management Platform suitabl…   0                    
+rhscl/nginx-114-rhel7                              Nginx is a web server and a reverse proxy se…   0                    
+root@ubuntu1804:~# docker search registry.access.redhat.com/ubi9/httpd-24
+NAME            DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+ubi9/httpd-24   rhcc_registry.access.redhat.com_ubi9/httpd-24   0                    
+root@ubuntu1804:~# docker pullh registry.access.redhat.com/ubi9/httpd-24
+docker: 'pullh' is not a docker command.
+See 'docker --help'
+root@ubuntu1804:~# docker pull registry.access.redhat.com/ubi9/httpd-24
+Using default tag: latest
+latest: Pulling from ubi9/httpd-24
+04dc13843981: Pull complete 
+176fc1146d3f: Pull complete 
+98b6a0815c04: Pull complete 
+Digest: sha256:f0e195c9962985b5d62a295e2373316b9146500357847ceb0a033ae9e0b67d7b
+Status: Downloaded newer image for registry.access.redhat.com/ubi9/httpd-24:latest
+registry.access.redhat.com/ubi9/httpd-24:latest
+root@ubuntu1804:~# docker images
+REPOSITORY                                 TAG       IMAGE ID       CREATED       SIZE
+nginx                                      latest    1403e55ab369   2 weeks ago   142MB
+registry.access.redhat.com/ubi9/httpd-24   latest    e5c0d1ddb1f5   5 weeks ago   366MB
+root@ubuntu1804:~# docker rmi e5c
+Untagged: registry.access.redhat.com/ubi9/httpd-24:latest
+Untagged: registry.access.redhat.com/ubi9/httpd-24@sha256:f0e195c9962985b5d62a295e2373316b9146500357847ceb0a033ae9e0b67d7b
+Deleted: sha256:e5c0d1ddb1f5ed7c26bcc6c561fe4dca1e27937c825d2ca4cee6f3d404c93546
+Deleted: sha256:b85e0ac29e266927cf6c64a8ca17255f4d4ae06ad01a563b48541cdfc65f4295
+Deleted: sha256:bc5d3d997a97e12914b3696056a5b952a934ce6b24f808a81a2cc46acc9b8f9a
+Deleted: sha256:ce9d08ae8f9927d284c3e9cd8e01fb1ccb35f3ccb58316e99172a48fb539f003
+root@ubuntu1804:~# docker images
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+nginx        latest    1403e55ab369   2 weeks ago   142MB
+root@ubuntu1804:~# docker rmi -f $(docker images -q)
+Untagged: nginx:latest
+Untagged: nginx@sha256:0047b729188a15da49380d9506d65959cce6d40291ccfb4e039f5dc7efd33286
+Deleted: sha256:1403e55ab369cd1c8039c34e6b4d47ca40bbde39c371254c7cba14756f472f52
+Deleted: sha256:0274f249eda4c376bde7cbe0b719ea3aef10201846d7262f37f7a0fc0b4fcf90
+Deleted: sha256:e01fc49cb889c5dd6b11390e9863ba00f886315c5a403ee5955fb5c88d2aa576
+Deleted: sha256:b2a367ee540c5d40c704fdece005b422f55f85a61b96a25bd99d6847669958a0
+Deleted: sha256:2c1c6d39cbcc4767b0798aacc03f203951057e77c5edebca1fdfbcd4997f2919
+Deleted: sha256:d260638126e1d2d3202dec36b67f124624fbcdad3afedd334e7260bf75dad8da
+Deleted: sha256:8a70d251b65364698f195f5a0b424e0d67de81307b79afbe662abd797068a069
+root@ubuntu1804:~# docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+root@ubuntu1804:~# 
+root@ubuntu1804:~# docker image prune
+WARNING! This will remove all dangling images.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+root@ubuntu1804:~# docker volume prune
+WARNING! This will remove all local volumes not used by at least one container.
+Are you sure you want to continue? [y/N] y
+Total reclaimed space: 0B
+root@ubuntu1804:~# exit
+logout
+vagrant@ubuntu1804:~$ exit
+logout
+Connection to 127.0.0.1 closed.
+bash-5.2$ exit
+exit
+swarnavs-MacBook-Air:~ swarnavpaul$ 
