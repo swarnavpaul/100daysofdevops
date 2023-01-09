@@ -1,0 +1,232 @@
+Last login: Mon Jan  9 13:01:27 on ttys000
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+swarnavs-MacBook-Air:~ swarnavpaul$ root
+-bash: root: command not found
+swarnavs-MacBook-Air:~ swarnavpaul$ hostname
+swarnavs-MacBook-Air.local
+swarnavs-MacBook-Air:~ swarnavpaul$ bash
+bash-5.2$ cd ~/devops/provision/vagrant/ubuntu
+bash-5.2$ pwd
+/Users/swarnavpaul/devops/provision/vagrant/ubuntu
+bash-5.2$ ls
+Vagrantfile
+ubuntu-xenial-16.04-cloudimg-console.log
+bash-5.2$ code vagrantfile
+bash-5.2$ vagrant box list
+centos/7           (virtualbox, 2004.01)
+generic/ubuntu1804 (virtualbox, 4.2.8)
+ubuntu/xenial64    (virtualbox, 20211001.0.0)
+bash-5.2$ vagrant box add "generic/ubuntu1804"
+==> box: Loading metadata for box 'generic/ubuntu1804'
+    box: URL: https://vagrantcloud.com/generic/ubuntu1804
+This box can work with multiple providers! The providers that it
+can work with are listed below. Please review the list and choose
+the provider you will be working with.
+
+1) hyperv
+2) libvirt
+3) parallels
+4) virtualbox
+5) vmware_desktop
+
+Enter your choice: 4
+==> box: Adding box 'generic/ubuntu1804' (v4.2.8) for provider: virtualbox
+The box you're attempting to add already exists. Remove it before
+adding it again or add it with the `--force` flag.
+
+Name: generic/ubuntu1804
+Provider: virtualbox
+Version: 4.2.8
+bash-5.2$ code Vagrantfile
+bash-5.2$ vagrant status
+Current machine states:
+
+default                   running (virtualbox)
+
+The VM is running. To stop this VM, you can run `vagrant halt` to
+shut it down forcefully, or you can run `vagrant suspend` to simply
+suspend the virtual machine. In either case, to restart it again,
+simply run `vagrant up`.
+bash-5.2$ vagrant ssh
+Last login: Mon Jan  9 07:25:46 2023 from 10.0.2.2
+vagrant@ubuntu1804:~$ sudo su -
+root@ubuntu1804:~# cat /etc/*release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.6 LTS"
+NAME="Ubuntu"
+VERSION="18.04.6 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.6 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+root@ubuntu1804:~# vagrant status
+
+Command 'vagrant' not found, but can be installed with:
+
+apt install vagrant
+
+root@ubuntu1804:~# ~/devops/provision/vagrant/bionic
+-su: /root/devops/provision/vagrant/bionic: No such file or directory
+root@ubuntu1804:~# pwd
+/root
+root@ubuntu1804:~# cd ~/devops/provision/vagrant/ubuntu
+-su: cd: /root/devops/provision/vagrant/ubuntu: No such file or directory
+root@ubuntu1804:~# cd ~/devops/provision/vagrant
+-su: cd: /root/devops/provision/vagrant: No such file or directory
+root@ubuntu1804:~# history
+    1  cat /etc/*release
+    2  curl -fsSL https://test.docker.com -o test-docker.sh
+    3  systemctl is-active docker
+    4  sh test-docker.sh 
+    5  systemctl is-active docker
+    6  systemctl status docker
+    7  docker pull nginx
+    8  docker info
+    9  docker system df
+   10  docker inspect nginx
+   11  docker search registry.access.redhat.com/httpd
+   12  docker search registry.access.redhat.com/ubi9/httpd-24
+   13  docker pullh registry.access.redhat.com/ubi9/httpd-24
+   14  docker pull registry.access.redhat.com/ubi9/httpd-24
+   15  docker images
+   16  docker rmi e5c
+   17  docker images
+   18  docker rmi -f $(docker images -q)
+   19  docker images
+   20  docker image prune
+   21  docker volume prune
+   22  exit
+   23  cat /etc/*release
+   24* 
+   25  vagranat status
+   26  vagrant status
+   27  vagrant ssh
+   28* cd /devops/provision/vagrant/bionic
+   29  clear 
+   30  status
+   31  vagrant status
+   32  local
+   33  cat /etc/*release
+   34  vagrant status
+   35* 
+   36  pwd
+   37  cd ~/devops/provision/vagrant/ubuntu
+   38  cd ~/devops/provision/vagrant
+   39  history
+root@ubuntu1804:~# exit
+logout
+vagrant@ubuntu1804:~$ exit
+logout
+Connection to 127.0.0.1 closed.
+bash-5.2$ pwd
+/Users/swarnavpaul/devops/provision/vagrant/ubuntu
+bash-5.2$ vagrant status
+Current machine states:
+
+default                   running (virtualbox)
+
+The VM is running. To stop this VM, you can run `vagrant halt` to
+shut it down forcefully, or you can run `vagrant suspend` to simply
+suspend the virtual machine. In either case, to restart it again,
+simply run `vagrant up`.
+bash-5.2$ vagrant hult 
+Usage: vagrant [options] <command> [<args>]
+
+    -h, --help                       Print this help.
+
+Common commands:
+     autocomplete    manages autocomplete installation on host
+     box             manages boxes: installation, removal, etc.
+     cloud           manages everything related to Vagrant Cloud
+     destroy         stops and deletes all traces of the vagrant machine
+     global-status   outputs status Vagrant environments for this user
+     halt            stops the vagrant machine
+     help            shows the help for a subcommand
+     hostmanager     plugin: vagrant-hostmanager: manages the /etc/hosts file within a multi-machine environment
+     init            initializes a new Vagrant environment by creating a Vagrantfile
+     login           
+     package         packages a running vagrant environment into a box
+     plugin          manages plugins: install, uninstall, update, etc.
+     port            displays information about guest port mappings
+     powershell      connects to machine via powershell remoting
+     provision       provisions the vagrant machine
+     push            deploys code in this environment to a configured destination
+     rdp             connects to machine via RDP
+     reload          restarts vagrant machine, loads new Vagrantfile configuration
+     resume          resume a suspended vagrant machine
+     serve           start Vagrant server
+     snapshot        manages snapshots: saving, restoring, etc.
+     ssh             connects to machine via SSH
+     ssh-config      outputs OpenSSH valid configuration to connect to the machine
+     status          outputs status of the vagrant machine
+     suspend         suspends the machine
+     up              starts and provisions the vagrant environment
+     upload          upload to machine via communicator
+     validate        validates the Vagrantfile
+     version         prints current and latest Vagrant version
+     winrm           executes commands on a machine via WinRM
+     winrm-config    outputs WinRM configuration to connect to the machine
+
+For help on any individual command run `vagrant COMMAND -h`
+
+Additional subcommands are available, but are either more advanced
+or not commonly used. To see all subcommands, run the command
+`vagrant list-commands`.
+        --[no-]color                 Enable or disable color output
+        --machine-readable           Enable machine readable output
+    -v, --version                    Display Vagrant version
+        --debug                      Enable debug output
+        --timestamp                  Enable timestamps on log output
+        --debug-timestamp            Enable debug output with timestamps
+        --no-tty                     Enable non-interactive output
+
+bash-5.2$ vagrant halt 
+==> default: Attempting graceful shutdown of VM...
+bash-5.2$ exit
+exit
+swarnavs-MacBook-Air:~ swarnavpaul$ pwd
+/Users/swarnavpaul
+swarnavs-MacBook-Air:~ swarnavpaul$ tree devops
+devops
+├── coding
+│   ├── ansible
+│   ├── chef
+│   │   ├── chefnode
+│   │   ├── chefserver
+│   │   └── chefworkstation
+│   ├── puppet
+│   │   ├── puppetnode
+│   │   └── puppetserver
+│   └── terraform
+├── provision
+│   ├── docker
+│   ├── kubernetes
+│   │   ├── Vagrantfile
+│   │   ├── install-ubuntu.sh
+│   │   └── ubuntu-xenial-16.04-cloudimg-console.log
+│   └── vagrant
+│       ├── centos
+│       │   └── Vagrantfile
+│       └── ubuntu
+│           ├── Vagrantfile
+│           └── ubuntu-xenial-16.04-cloudimg-console.log
+└── release
+    ├── git
+    ├── gitlab
+    ├── jenkins
+    ├── nagios
+    └── tomcat
+
+23 directories, 6 files
+swarnavs-MacBook-Air:~ swarnavpaul$ 
