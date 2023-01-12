@@ -1,0 +1,802 @@
+Last login: Mon Jan  9 17:55:58 on ttys000
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+swarnavs-MacBook-Air:~ swarnavpaul$ sudo su -
+Password:
+swarnavs-MacBook-Air:~ root# vagrant status
+A Vagrant environment or target machine is required to run this
+command. Run `vagrant init` to create a new Vagrant environment. Or,
+get an ID of a target machine from `vagrant global-status` to run
+this command on. A final option is to change to a directory with a
+Vagrantfile and to try again.
+swarnavs-MacBook-Air:~ root# ~/devops/provision/vagrant/bionic
+-sh: /var/root/devops/provision/vagrant/bionic: No such file or directory
+swarnavs-MacBook-Air:~ root# local
+-sh: local: can only be used in a function
+swarnavs-MacBook-Air:~ root# bash
+bash-5.2# cd ~/devops/provision/vagrant/ubuntu
+bash-5.2# pwd
+/var/root/devops/provision/vagrant/ubuntu
+bash-5.2# ls                                  
+.vagrant
+Vagrantfile
+ubuntu-xenial-16.04-cloudimg-console.log
+bash-5.2# vagrantfile
+bash: vagrantfile: command not found
+bash-5.2# code vagrantfile
+bash-5.2# vagrant box list
+centos/7           (virtualbox, 2004.01)
+generic/ubuntu1804 (virtualbox, 4.2.8)
+bash-5.2# vagrant box add "generic/ubuntu1804"
+==> box: Loading metadata for box 'generic/ubuntu1804'
+    box: URL: https://vagrantcloud.com/generic/ubuntu1804
+This box can work with multiple providers! The providers that it
+can work with are listed below. Please review the list and choose
+the provider you will be working with.
+
+1) hyperv
+2) libvirt
+3) parallels
+4) virtualbox
+5) vmware_desktop
+
+Enter your choice: 4
+==> box: Adding box 'generic/ubuntu1804' (v4.2.8) for provider: virtualbox
+The box you're attempting to add already exists. Remove it before
+adding it again or add it with the `--force` flag.
+
+Name: generic/ubuntu1804
+Provider: virtualbox
+Version: 4.2.8
+bash-5.2# code vagrantfile
+bash-5.2# vagrant status
+Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+bash-5.2# vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Checking if box 'generic/ubuntu1804' version '4.2.8' is up to date...
+==> default: Clearing any previously set forwarded ports...
+==> default: Fixed port collision for 22 => 2222. Now on port 2204.
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==> default: Forwarding ports...
+    default: 22 (guest) => 2204 (host) (adapter 1)
+==> default: Running 'pre-boot' VM customizations...
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2204
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default: 
+    default: Guest Additions Version: 5.2.42
+    default: VirtualBox Version: 7.0
+==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> default: flag to force provisioning. Provisioners marked to run always will still run.
+bash-5.2# vagrant status
+Current machine states:
+
+default                   running (virtualbox)
+
+The VM is running. To stop this VM, you can run `vagrant halt` to
+shut it down forcefully, or you can run `vagrant suspend` to simply
+suspend the virtual machine. In either case, to restart it again,
+simply run `vagrant up`.
+bash-5.2# vagrant ssh
+Last login: Fri Jan  6 07:08:07 2023 from 10.0.2.2
+vagrant@ubuntu1804:~$ sudo su -
+root@ubuntu1804:~# cat /etc/*release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.6 LTS"
+NAME="Ubuntu"
+VERSION="18.04.6 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 18.04.6 LTS"
+VERSION_ID="18.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=bionic
+UBUNTU_CODENAME=bionic
+root@ubuntu1804:~# vagrant status
+
+Command 'vagrant' not found, but can be installed with:
+
+apt install vagrant
+
+root@ubuntu1804:~# history
+    1  cat /etc/*release
+    2  curl -fsSL https://test.docker.com -o test-docker.sh
+    3  sh test-docker.sh
+    4  exit
+    5  cat /etc/*release
+    6  vagrant status
+    7  history
+root@ubuntu1804:~# exit
+logout
+vagrant@ubuntu1804:~$ pwd
+/home/vagrant
+vagrant@ubuntu1804:~$ vagrant status
+
+Command 'vagrant' not found, but can be installed with:
+
+apt install vagrant
+Please ask your administrator.
+
+vagrant@ubuntu1804:~$ exit
+logout
+Connection to 127.0.0.1 closed.
+bash-5.2# pwd
+/var/root/devops/provision/vagrant/ubuntu
+bash-5.2# vagrant status
+Current machine states:
+
+default                   running (virtualbox)
+
+The VM is running. To stop this VM, you can run `vagrant halt` to
+shut it down forcefully, or you can run `vagrant suspend` to simply
+suspend the virtual machine. In either case, to restart it again,
+simply run `vagrant up`.
+bash-5.2# vagrant hult
+Usage: vagrant [options] <command> [<args>]
+
+    -h, --help                       Print this help.
+
+Common commands:
+     autocomplete    manages autocomplete installation on host
+     box             manages boxes: installation, removal, etc.
+     cloud           manages everything related to Vagrant Cloud
+     destroy         stops and deletes all traces of the vagrant machine
+     global-status   outputs status Vagrant environments for this user
+     halt            stops the vagrant machine
+     help            shows the help for a subcommand
+     init            initializes a new Vagrant environment by creating a Vagrantfile
+     login           
+     package         packages a running vagrant environment into a box
+     plugin          manages plugins: install, uninstall, update, etc.
+     port            displays information about guest port mappings
+     powershell      connects to machine via powershell remoting
+     provision       provisions the vagrant machine
+     push            deploys code in this environment to a configured destination
+     rdp             connects to machine via RDP
+     reload          restarts vagrant machine, loads new Vagrantfile configuration
+     resume          resume a suspended vagrant machine
+     serve           start Vagrant server
+     snapshot        manages snapshots: saving, restoring, etc.
+     ssh             connects to machine via SSH
+     ssh-config      outputs OpenSSH valid configuration to connect to the machine
+     status          outputs status of the vagrant machine
+     suspend         suspends the machine
+     up              starts and provisions the vagrant environment
+     upload          upload to machine via communicator
+     validate        validates the Vagrantfile
+     version         prints current and latest Vagrant version
+     winrm           executes commands on a machine via WinRM
+     winrm-config    outputs WinRM configuration to connect to the machine
+
+For help on any individual command run `vagrant COMMAND -h`
+
+Additional subcommands are available, but are either more advanced
+or not commonly used. To see all subcommands, run the command
+`vagrant list-commands`.
+        --[no-]color                 Enable or disable color output
+        --machine-readable           Enable machine readable output
+    -v, --version                    Display Vagrant version
+        --debug                      Enable debug output
+        --timestamp                  Enable timestamps on log output
+        --debug-timestamp            Enable debug output with timestamps
+        --no-tty                     Enable non-interactive output
+
+bash-5.2# vagrant halt
+==> default: Attempting graceful shutdown of VM...
+bash-5.2# exit
+exit
+swarnavs-MacBook-Air:~ root# pwd
+/var/root
+swarnavs-MacBook-Air:~ root# tree devops
+devops
+|-- coding
+|   |-- ansible
+|   |-- chef
+|   |   |-- chefnode
+|   |   |-- chefserver
+|   |   `-- chefworkstation
+|   |-- puppet
+|   |   |-- puppetnode
+|   |   `-- puppetserver
+|   `-- terraform
+|-- provision
+|   |-- docker
+|   |-- kubernetes
+|   `-- vagrant
+|       |-- centos
+|       |   `-- Vagrantfile
+|       `-- ubuntu
+|           |-- Vagrantfile
+|           `-- ubuntu-xenial-16.04-cloudimg-console.log
+`-- release
+    |-- git
+    |-- gitlab
+    |-- jenkins
+    |-- nagios
+    `-- tomcat
+
+23 directories, 3 files
+swarnavs-MacBook-Air:~ root# sudo su -
+swarnavs-MacBook-Air:~ root# ~/devops/provision/vagrant/bionic
+-sh: /var/root/devops/provision/vagrant/bionic: No such file or directory
+swarnavs-MacBook-Air:~ root# vagrant status
+A Vagrant environment or target machine is required to run this
+command. Run `vagrant init` to create a new Vagrant environment. Or,
+get an ID of a target machine from `vagrant global-status` to run
+this command on. A final option is to change to a directory with a
+Vagrantfile and to try again.
+swarnavs-MacBook-Air:~ root# vagrant ssh
+A Vagrant environment or target machine is required to run this
+command. Run `vagrant init` to create a new Vagrant environment. Or,
+get an ID of a target machine from `vagrant global-status` to run
+this command on. A final option is to change to a directory with a
+Vagrantfile and to try again.
+swarnavs-MacBook-Air:~ root# ls
+.CFUserTextEncoding	.vagrant.d		devops
+.bash_history		Library
+.forward		VirtualBox VMs
+swarnavs-MacBook-Air:~ root# pwd
+/var/root
+swarnavs-MacBook-Air:~ root# ls
+.CFUserTextEncoding	.vagrant.d		devops
+.bash_history		Library
+.forward		VirtualBox VMs
+swarnavs-MacBook-Air:~ root# vagrantfile
+-sh: vagrantfile: command not found
+swarnavs-MacBook-Air:~ root# vagrantfile
+-sh: vagrantfile: command not found
+swarnavs-MacBook-Air:~ root# local
+-sh: local: can only be used in a function
+swarnavs-MacBook-Air:~ root# bash
+bash-5.2# cd ~/devops/provision/vagrant/ubuntu
+bash-5.2# pwd
+/var/root/devops/provision/vagrant/ubuntu
+bash-5.2# ls
+.vagrant
+Vagrantfile
+ubuntu-xenial-16.04-cloudimg-console.log
+bash-5.2# vagrantfile
+bash: vagrantfile: command not found
+bash-5.2# vagrantfile
+bash: vagrantfile: command not found
+bash-5.2# history
+    1  ls
+    2  cd /
+    3  ls
+    4  cd ~
+    5  cd ~/devops
+    6  curl -sSL https://gitlab.com/roybhaskar9/devops/raw/master/Lab/LaptopLab/Windows/version10/labfolders.sh | bash
+    7  pwd
+    8  cd ~
+    9  ls
+   10  cd devops/provision/vagrant/bionic
+   11  cd devops/provision/vagrant/ubuntu
+   12  ls
+   13  code Vagrantfile 
+   14  brew install --cask visual-studio-code
+   15  exit
+   16  cd ~/devops/provision/vagrant/ubuntu
+   17  pwd
+   18  vagrant box add generic/ubuntu
+   19  vagrant box add generic/ubuntu1804
+   20  =vagrant box list
+   21  vagrant box list
+   22  ls
+   23  rm Vagrantfile 
+   24  vagrant init generic/ubuntu1804 --force
+   25  ls
+   26  code Vagrantfile 
+   27  code Vagrantfile 
+   28  code Vagrantfile
+   29  cat Vagrantfile 
+   30  code Vagrantfile
+   31  vagrant up
+   32  vagrant ssh
+   33  vagrant destroy -f
+   34  vagrant statys
+   35  vagrant status
+   36  vagrant box list
+   37  vagrant box --help
+   38  vagrant box remove ubuntu/xenial64
+   39  vagrant box list
+   40  ls
+   41  rm -f Vagrantfile 
+   42  ls
+   43  vagrant init generic/ubuntu --force
+   44  ls
+   45  cat Vagrantfile 
+   46  vagrant up
+   47  rm -f Vagrantfile 
+   48  ls
+   49  vagrant init generic/ubuntu1804 --force
+   50  ls
+   51  cat Vagrantfile 
+   52  ls
+   53  vagrant status
+   54  vagrant up
+   55  vagrant ssh
+   56  vagrant halt
+   57  vagrant status
+   58  pwd
+   59  exit
+   60  cd ~/devops/provision/vagrant/ubuntu
+   61  pwd
+   62  ls
+   63  vagrantfile
+   64  code vagrantfile
+   65  vagrant box list
+   66  vagrant box add "generic/ubuntu1804"
+   67  code vagrantfile
+   68  vagrant status
+   69  vagrant up
+   70  vagrant status
+   71  vagrant ssh
+   72  pwd
+   73  vagrant status
+   74  vagrant hult
+   75  vagrant halt
+   76  exit
+   77  cd ~/devops/provision/vagrant/ubuntu
+   78  pwd
+   79  ls
+   80  vagrantfile
+   81  vagrantfile
+   82  history
+bash-5.2# exit
+exit
+swarnavs-MacBook-Air:~ root# sudo su -
+swarnavs-MacBook-Air:~ root# cd ~/devops/provision/vagrant/ubuntu
+swarnavs-MacBook-Air:ubuntu root# pwd
+/var/root/devops/provision/vagrant/ubuntu
+swarnavs-MacBook-Air:ubuntu root# ls
+.vagrant
+Vagrantfile
+ubuntu-xenial-16.04-cloudimg-console.log
+swarnavs-MacBook-Air:ubuntu root# vagrantfile
+-sh: vagrantfile: command not found
+swarnavs-MacBook-Air:ubuntu root# exit  
+logout
+swarnavs-MacBook-Air:~ root# local
+-sh: local: can only be used in a function
+swarnavs-MacBook-Air:~ root# hostname
+swarnavs-MacBook-Air.local
+swarnavs-MacBook-Air:~ root# local
+-sh: local: can only be used in a function
+swarnavs-MacBook-Air:~ root# bash
+bash-5.2# cd ~/devops/provision/vagrant/ubuntu
+bash-5.2# pwd
+/var/root/devops/provision/vagrant/ubuntu
+bash-5.2# ls
+.vagrant
+Vagrantfile
+ubuntu-xenial-16.04-cloudimg-console.log
+bash-5.2# vagrantfile
+bash: vagrantfile: command not found
+bash-5.2# vagrant status
+Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+bash-5.2# power on
+bash: power: command not found
+bash-5.2# vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Checking if box 'generic/ubuntu1804' version '4.2.8' is up to date...
+==> default: Clearing any previously set forwarded ports...
+==> default: Fixed port collision for 22 => 2222. Now on port 2204.
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==> default: Forwarding ports...
+    default: 22 (guest) => 2204 (host) (adapter 1)
+==> default: Running 'pre-boot' VM customizations...
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2204
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default: 
+    default: Guest Additions Version: 5.2.42
+    default: VirtualBox Version: 7.0
+==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> default: flag to force provisioning. Provisioners marked to run always will still run.
+bash-5.2# vagrant status
+Current machine states:
+
+default                   running (virtualbox)
+
+The VM is running. To stop this VM, you can run `vagrant halt` to
+shut it down forcefully, or you can run `vagrant suspend` to simply
+suspend the virtual machine. In either case, to restart it again,
+simply run `vagrant up`.
+bash-5.2# vagrant hult 
+Usage: vagrant [options] <command> [<args>]
+
+    -h, --help                       Print this help.
+
+Common commands:
+     autocomplete    manages autocomplete installation on host
+     box             manages boxes: installation, removal, etc.
+     cloud           manages everything related to Vagrant Cloud
+     destroy         stops and deletes all traces of the vagrant machine
+     global-status   outputs status Vagrant environments for this user
+     halt            stops the vagrant machine
+     help            shows the help for a subcommand
+     init            initializes a new Vagrant environment by creating a Vagrantfile
+     login           
+     package         packages a running vagrant environment into a box
+     plugin          manages plugins: install, uninstall, update, etc.
+     port            displays information about guest port mappings
+     powershell      connects to machine via powershell remoting
+     provision       provisions the vagrant machine
+     push            deploys code in this environment to a configured destination
+     rdp             connects to machine via RDP
+     reload          restarts vagrant machine, loads new Vagrantfile configuration
+     resume          resume a suspended vagrant machine
+     serve           start Vagrant server
+     snapshot        manages snapshots: saving, restoring, etc.
+     ssh             connects to machine via SSH
+     ssh-config      outputs OpenSSH valid configuration to connect to the machine
+     status          outputs status of the vagrant machine
+     suspend         suspends the machine
+     up              starts and provisions the vagrant environment
+     upload          upload to machine via communicator
+     validate        validates the Vagrantfile
+     version         prints current and latest Vagrant version
+     winrm           executes commands on a machine via WinRM
+     winrm-config    outputs WinRM configuration to connect to the machine
+
+For help on any individual command run `vagrant COMMAND -h`
+
+Additional subcommands are available, but are either more advanced
+or not commonly used. To see all subcommands, run the command
+`vagrant list-commands`.
+        --[no-]color                 Enable or disable color output
+        --machine-readable           Enable machine readable output
+    -v, --version                    Display Vagrant version
+        --debug                      Enable debug output
+        --timestamp                  Enable timestamps on log output
+        --debug-timestamp            Enable debug output with timestamps
+        --no-tty                     Enable non-interactive output
+
+bash-5.2# vagrant hult
+Usage: vagrant [options] <command> [<args>]
+
+    -h, --help                       Print this help.
+
+Common commands:
+     autocomplete    manages autocomplete installation on host
+     box             manages boxes: installation, removal, etc.
+     cloud           manages everything related to Vagrant Cloud
+     destroy         stops and deletes all traces of the vagrant machine
+     global-status   outputs status Vagrant environments for this user
+     halt            stops the vagrant machine
+     help            shows the help for a subcommand
+     init            initializes a new Vagrant environment by creating a Vagrantfile
+     login           
+     package         packages a running vagrant environment into a box
+     plugin          manages plugins: install, uninstall, update, etc.
+     port            displays information about guest port mappings
+     powershell      connects to machine via powershell remoting
+     provision       provisions the vagrant machine
+     push            deploys code in this environment to a configured destination
+     rdp             connects to machine via RDP
+     reload          restarts vagrant machine, loads new Vagrantfile configuration
+     resume          resume a suspended vagrant machine
+     serve           start Vagrant server
+     snapshot        manages snapshots: saving, restoring, etc.
+     ssh             connects to machine via SSH
+     ssh-config      outputs OpenSSH valid configuration to connect to the machine
+     status          outputs status of the vagrant machine
+     suspend         suspends the machine
+     up              starts and provisions the vagrant environment
+     upload          upload to machine via communicator
+     validate        validates the Vagrantfile
+     version         prints current and latest Vagrant version
+     winrm           executes commands on a machine via WinRM
+     winrm-config    outputs WinRM configuration to connect to the machine
+
+For help on any individual command run `vagrant COMMAND -h`
+
+Additional subcommands are available, but are either more advanced
+or not commonly used. To see all subcommands, run the command
+`vagrant list-commands`.
+        --[no-]color                 Enable or disable color output
+        --machine-readable           Enable machine readable output
+    -v, --version                    Display Vagrant version
+        --debug                      Enable debug output
+        --timestamp                  Enable timestamps on log output
+        --debug-timestamp            Enable debug output with timestamps
+        --no-tty                     Enable non-interactive output
+
+bash-5.2# vagrant halt
+==> default: Attempting graceful shutdown of VM...
+bash-5.2# exit
+exit
+swarnavs-MacBook-Air:~ root# pwd
+/var/root
+swarnavs-MacBook-Air:~ root# tree devops
+devops
+|-- coding
+|   |-- ansible
+|   |-- chef
+|   |   |-- chefnode
+|   |   |-- chefserver
+|   |   `-- chefworkstation
+|   |-- puppet
+|   |   |-- puppetnode
+|   |   `-- puppetserver
+|   `-- terraform
+|-- provision
+|   |-- docker
+|   |-- kubernetes
+|   `-- vagrant
+|       |-- centos
+|       |   `-- Vagrantfile
+|       `-- ubuntu
+|           |-- Vagrantfile
+|           `-- ubuntu-xenial-16.04-cloudimg-console.log
+`-- release
+    |-- git
+    |-- gitlab
+    |-- jenkins
+    |-- nagios
+    `-- tomcat
+
+23 directories, 3 files
+swarnavs-MacBook-Air:~ root# vagrant status
+A Vagrant environment or target machine is required to run this
+command. Run `vagrant init` to create a new Vagrant environment. Or,
+get an ID of a target machine from `vagrant global-status` to run
+this command on. A final option is to change to a directory with a
+Vagrantfile and to try again.
+swarnavs-MacBook-Air:~ root# vagrant init
+A `Vagrantfile` has been placed in this directory. You are now
+ready to `vagrant up` your first virtual environment! Please read
+the comments in the Vagrantfile as well as documentation on
+`vagrantup.com` for more information on using Vagrant.
+swarnavs-MacBook-Air:~ root# vagrant status
+Current machine states:
+
+default                   not created (virtualbox)
+
+The environment has not yet been created. Run `vagrant up` to
+create the environment. If a machine is not created, only the
+default provider will be shown. So if a provider is not listed,
+then the machine is not created for that environment.
+swarnavs-MacBook-Air:~ root# vagrant init
+`Vagrantfile` already exists in this directory. Remove it before
+running `vagrant init`.
+swarnavs-MacBook-Air:~ root# vagrantfile
+-sh: vagrantfile: command not found
+swarnavs-MacBook-Air:~ root# vagrant status
+Current machine states:
+
+default                   not created (virtualbox)
+
+The environment has not yet been created. Run `vagrant up` to
+create the environment. If a machine is not created, only the
+default provider will be shown. So if a provider is not listed,
+then the machine is not created for that environment.
+swarnavs-MacBook-Air:~ root# vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Box 'base' could not be found. Attempting to find and install...
+    default: Box Provider: virtualbox
+    default: Box Version: >= 0
+==> default: Box file was not detected as metadata. Adding it directly...
+==> default: Adding box 'base' (v0) for provider: virtualbox
+    default: Downloading: base
+An error occurred while downloading the remote file. The error
+message, if any, is reproduced below. Please fix this error and try
+again.
+
+Couldn't open file /private/var/root/base
+swarnavs-MacBook-Air:~ root# vagrant status
+Current machine states:
+
+default                   not created (virtualbox)
+
+The environment has not yet been created. Run `vagrant up` to
+create the environment. If a machine is not created, only the
+default provider will be shown. So if a provider is not listed,
+then the machine is not created for that environment.
+swarnavs-MacBook-Air:~ root# cd ~/devops/provision/vagrant/ubuntu
+swarnavs-MacBook-Air:ubuntu root# extit
+-sh: extit: command not found
+swarnavs-MacBook-Air:ubuntu root# exit
+logout
+swarnavs-MacBook-Air:~ root# docker run -it --name=ubuntu-con ubuntu
+-sh: docker: command not found
+swarnavs-MacBook-Air:~ root# pwd
+/var/root
+swarnavs-MacBook-Air:~ root# hostname
+swarnavs-MacBook-Air.local
+swarnavs-MacBook-Air:~ root# hostname
+swarnavs-MacBook-Air.local
+swarnavs-MacBook-Air:~ root# hostname docker run -it --name=ubuntu-con ubuntu
+usage: hostname [-f] [-s | -d] [name-of-host]
+swarnavs-MacBook-Air:~ root# code vargantfile
+swarnavs-MacBook-Air:~ root# vagrant box list
+centos/7           (virtualbox, 2004.01)
+generic/ubuntu1804 (virtualbox, 4.2.8)
+swarnavs-MacBook-Air:~ root# bash
+bash-5.2# cd ~/devops/provision/vagrant/ubuntu
+bash-5.2# vagrant status
+Current machine states:
+
+default                   poweroff (virtualbox)
+
+The VM is powered off. To restart the VM, simply run `vagrant up`
+bash-5.2# vagrant up
+Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Checking if box 'generic/ubuntu1804' version '4.2.8' is up to date...
+==> default: Clearing any previously set forwarded ports...
+==> default: Fixed port collision for 22 => 2222. Now on port 2204.
+==> default: Clearing any previously set network interfaces...
+==> default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==> default: Forwarding ports...
+    default: 22 (guest) => 2204 (host) (adapter 1)
+==> default: Running 'pre-boot' VM customizations...
+==> default: Booting VM...
+==> default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2204
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Connection reset. Retrying...
+==> default: Machine booted and ready!
+==> default: Checking for guest additions in VM...
+    default: The guest additions on this VM do not match the installed version of
+    default: VirtualBox! In most cases this is fine, but in rare cases it can
+    default: prevent things such as shared folders from working properly. If you see
+    default: shared folder errors, please make sure the guest additions within the
+    default: virtual machine match the version of VirtualBox you have installed on
+    default: your host and reload your VM.
+    default: 
+    default: Guest Additions Version: 5.2.42
+    default: VirtualBox Version: 7.0
+==> default: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> default: flag to force provisioning. Provisioners marked to run always will still run.
+bash-5.2# vagrant ssh
+Last login: Wed Jan 11 05:22:01 2023 from 10.0.2.2
+vagrant@ubuntu1804:~$ sudo su -
+root@ubuntu1804:~# doker ps
+
+Command 'doker' not found, did you mean:
+
+  command 'docker' from snap docker (20.10.17)
+  command 'docker' from deb docker.io
+
+See 'snap info <snapname>' for additional versions.
+
+root@ubuntu1804:~# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+root@ubuntu1804:~# docker run -it --name=ubuntu-con ubuntu
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+6e3729cf69e0: Pull complete 
+Digest: sha256:27cb6e6ccef575a4698b66f5de06c7ecd61589132d5a91d098f7f3f9285415a9
+Status: Downloaded newer image for ubuntu:latest
+root@30de7d5ebf26:/# ls    
+bin   dev  home  lib32  libx32  mnt  proc  run   srv  tmp  var
+boot  etc  lib   lib64  media   opt  root  sbin  sys  usr
+root@30de7d5ebf26:/# extix
+bash: extix: command not found
+root@30de7d5ebf26:/# exit
+exit
+root@ubuntu1804:~# ls
+test-docker.sh
+root@ubuntu1804:~# cd /root
+root@ubuntu1804:~# ls
+test-docker.sh
+root@ubuntu1804:~# cd /
+root@ubuntu1804:/# ls
+bin   home            lib64       opt   sbin  tmp      vmlinuz.old
+boot  initrd.img      lost+found  proc  snap  usr
+dev   initrd.img.old  media       root  srv   var
+etc   lib             mnt         run   sys   vmlinuz
+root@ubuntu1804:/# 
+root@ubuntu1804:/# docker run -it --name=ubuntu-con ubuntu
+docker: Error response from daemon: Conflict. The container name "/ubuntu-con" is already in use by container "30de7d5ebf2683eabf26d711f8fd7f04f53e9d9e075add575ecb68a4f3fd2e33". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+root@ubuntu1804:/# docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS                        PORTS     NAMES
+30de7d5ebf26   ubuntu    "bash"    23 minutes ago   Exited (127) 21 minutes ago             ubuntu-con
+root@ubuntu1804:/# docker logs 30de7d5ebf26
+root@30de7d5ebf26:/# ls    
+bin   dev  home  lib32  libx32  mnt  proc  run   srv  tmp  var
+boot  etc  lib   lib64  media   opt  root  sbin  sys  usr
+root@30de7d5ebf26:/# extix
+bash: extix: command not found
+root@30de7d5ebf26:/# exit
+exit
+root@ubuntu1804:/# docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS                        PORTS     NAMES
+30de7d5ebf26   ubuntu    "bash"    28 minutes ago   Exited (127) 26 minutes ago             ubuntu-con
+root@ubuntu1804:/# docker logs ubuntu-con
+root@30de7d5ebf26:/# ls    
+bin   dev  home  lib32  libx32  mnt  proc  run   srv  tmp  var
+boot  etc  lib   lib64  media   opt  root  sbin  sys  usr
+root@30de7d5ebf26:/# extix
+bash: extix: command not found
+root@30de7d5ebf26:/# exit
+exit
+root@ubuntu1804:/# docker exec --help
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+Aliases:
+  docker container exec, docker exec
+
+Options:
+  -d, --detach               Detached mode: run command in the background
+      --detach-keys string   Override the key sequence for detaching a container
+  -e, --env list             Set environment variables
+      --env-file list        Read in a file of environment variables
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command
+  -t, --tty                  Allocate a pseudo-TTY
+  -u, --user string          Username or UID (format: <name|uid>[:<group|gid>])
+  -w, --workdir string       Working directory inside the container
+root@ubuntu1804:/# docker exec -it --name=ubuntu-con2 ubuntu bash
+unknown flag: --name
+See 'docker exec --help'.
+root@ubuntu1804:/# docker exec -it ubuntu-con2 ubuntu bash
+Error response from daemon: No such container: ubuntu-con2
+root@ubuntu1804:/# docker exec -it ubuntu-con  ubuntu bash
+Error response from daemon: Container 30de7d5ebf2683eabf26d711f8fd7f04f53e9d9e075add575ecb68a4f3fd2e33 is not running
+root@ubuntu1804:/# docker start 30de7d5ebf26
+30de7d5ebf26
+root@ubuntu1804:/# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS          PORTS     NAMES
+30de7d5ebf26   ubuntu    "bash"    43 minutes ago   Up 10 seconds             ubuntu-con
+root@ubuntu1804:/# docker exec -it ubuntu-con  ubuntu bash
+OCI runtime exec failed: exec failed: unable to start container process: exec: "ubuntu": executable file not found in $PATH: unknown
+root@ubuntu1804:/# docker exec -it ubuntu-con  ubuntu /bin/bash
+OCI runtime exec failed: exec failed: unable to start container process: exec: "ubuntu": executable file not found in $PATH: unknown
+root@ubuntu1804:/# docker exec -it ubuntu-con  bash
+root@30de7d5ebf26:/# ps ef
+  PID TTY      STAT   TIME COMMAND
+   22 pts/1    Ss     0:00 bash PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOSTNAME=30de7d5ebf26 TERM=xterm HOME=/root
+   30 pts/1    R+     0:00  \_ ps ef HOSTNAME=30de7d5ebf26 PWD=/ HOME=/root LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca
+    1 pts/0    Ss+    0:00 bash PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin HOSTNAME=30de7d5ebf26 TERM=xterm HOME=/root
+root@30de7d5ebf26:/# exit
+exit
+root@ubuntu1804:/# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED          STATUS         PORTS     NAMES
+30de7d5ebf26   ubuntu    "bash"    48 minutes ago   Up 5 minutes             ubuntu-con
+root@ubuntu1804:/# 
